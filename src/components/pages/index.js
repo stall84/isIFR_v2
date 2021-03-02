@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
 
@@ -25,9 +26,11 @@ const Welcome = styled.h1`
 const Index = () => {
     return (
         <Container maxWidth="xl" disableGutters={true}>
-            <Backdrop>
-                <Welcome>Hello Aviation Enthusiasts!</Welcome>
-            </Backdrop>
+            <Grid item sm={12}>
+                <Backdrop>
+                    <Welcome>Hello Aviation Enthusiasts!</Welcome>
+                </Backdrop>
+            </Grid>
         </Container>
     );
 };
