@@ -26,10 +26,15 @@ const Welcome = styled.h1`
 const Index = () => {
     return (
         <Container maxWidth="xl" disableGutters={true}>
-            <Grid item sm={12}>
-                <Backdrop>
-                    <Welcome>Hello Aviation Enthusiasts!</Welcome>
-                </Backdrop>
+            <Grid container sm={12}>
+                <Grid item sm={12} alignContent="center" justify="center">
+                    <Welcome>Hello Airbus Employee!</Welcome>
+                    <FormSection>
+                        <input type="text" />
+
+                        
+                    </FormSection>
+              </Grid>
             </Grid>
         </Container>
     );
