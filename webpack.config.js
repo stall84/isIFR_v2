@@ -1,6 +1,9 @@
 const path = require('path');
 
+const CleanPlugin = require("clean-webpack-plugin");
+
 const config = {
+    mode: 'production',
     entry: {
         vendor: ['graphql', 'relay-local-schema', '@babel/polyfill', 'react'],
         index: ['./src/components/entrypoints/index.jsx']
@@ -26,7 +29,10 @@ const config = {
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '*']
-    }
+    },
+    plugins: [
+        new CleanPlugin.CleanWebpackPlugin()
+      ],
 }
 
 module.exports = config;

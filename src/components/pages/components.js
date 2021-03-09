@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -59,17 +59,22 @@ export const Welcome = styled.h1`
 
 export const Form = (props) => {
 
-    const input = useRef(null);
+    const [ input, setInput ] = useState(null);
+    
 
-    const inputHandler = (event) => {
-        event.preventDefault();
-        alert('Sup!');
-        console.log('Logging Ref: ', input.current);
+    const inputHandler = (inputVal) => {
+        setInput(inputVal);
     }
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        alert(input);
+    }
+
     return (
         <React.Fragment>
-            <form onSubmit={inputHandler}>
-                <TextInput ref={input} type="text" />
+            <form onSubmit={submitHandler}>
+                <TextInput onChange={input => inputHandler(input.target.value)} type="text" />
                 <ButtonContainer>
                     <Button type="submit" >
                         A TEST BUTTON
