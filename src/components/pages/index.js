@@ -3,19 +3,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Container, 
-    Welcome,
+    WelcomeDiv,
+    WelcomeMsg,
     FormSection, 
-    Form } from './components';
+    Form, 
+    Display } from './components';
 
 
 
 const Index = () => {
     return (
         <Container >
-                    <Welcome>Hello Airbus Employee!</Welcome>
-                    <FormSection>
+            <WelcomeDiv>
+                    <WelcomeMsg>Welcome to isIFR?: The web-app that will give you the most pertinent weather information you need on the airport of your choice</WelcomeMsg>
+            </WelcomeDiv>
                         <Form />
-                    </FormSection>
+                        <Display />
         </Container>
     );
 };

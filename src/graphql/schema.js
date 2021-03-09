@@ -7,12 +7,20 @@ import { GraphQLList,
 
 import {API} from '../../keys/apikey';
 
+import axios from 'axios';
+
 const BASE_URL = `https://avwx.rest/api/metar/`;
 const API_KEY = API.key;
 
 function fetchWeather(ICAO) {
-    return fetch(`${BASE_URL}${ICAO}${API_KEY}`)
-        .then(res => res.json());
+    return axios.get(`${BASE_URL}${ICAO}?token=${API_KEY}`)
+        .then((res) => {
+            // console.log('response: ', res.data);
+            return res.data;
+        })
+        .catch((error) => {
+            console.log('Error: ', error);
+        })
 }
 
 const WeatherResponseType = new GraphQLObjectType({
@@ -35,11 +43,15 @@ const QueryType = new GraphQLObjectType({
     description: 'Root query call to avwx REST API',
     fields: () => ({
         wxResponse: {
-            type: new GraphQLList(WeatherResponseType),
+            type: WeatherResponseType,
             args: {
                 code: { type: GraphQLString },
             },
-            resolve: (root, args) => fetchWeather(`${args.code}`) 
+            async resolve(root, args) {
+                const responseObj = await fetchWeather(`${args.code}`); 
+                // console.log('Query resolve return: ', responseObj);
+                return responseObj;
+            }
         }
     })
 })

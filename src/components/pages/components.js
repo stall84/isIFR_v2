@@ -17,7 +17,7 @@ export const Backdrop = styled.div`
     width: 100vw;
 `;
 
-export const FormSection = styled.div`
+export const FormSection = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +28,12 @@ export const FormSection = styled.div`
 `;
 
 export const TextInput = styled.input`
-    width: 12em;
+    text-align: center;
+    font-size: 1.5em;
+    width: 14em;
+    height: 2rem;
+    background-color: #E9EBEE;
+    border: .25px black;
     
 `;
 
@@ -41,20 +46,36 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button`
-    height: fit-content;
-    width: fit-content;
+    height: 2.2rem;
+    width: 8rem;
     border: 0;
     border-radius: 20%;
     background-color: #D166A7;
     color: #FFF;
-    text-shadow: 0.3px -0.3px black;
+    text-shadow: 0.2px -0.2px black;
     font-family: 'Raleway';
 `;
 
-export const Welcome = styled.h1`
+export const WelcomeDiv = styled.div`
+    width: 90vw;
+    height: 20vh;
+    display: flex;
+    text-align: center;
+`;
+
+export const WelcomeMsg = styled.h1`
     font-family: 'Raleway', open-sans;
 `;
 
+export const DisplayDiv = styled.div`
+    width: 90vw;
+    height: 30vh;
+    background-color: #6893A6;
+    border: 0.5px solid black;
+    display: flex;
+    flex-direction: column;
+
+`;
 
 
 export const Form = (props) => {
@@ -73,14 +94,26 @@ export const Form = (props) => {
 
     return (
         <React.Fragment>
-            <form onSubmit={submitHandler}>
-                <TextInput onChange={input => inputHandler(input.target.value)} type="text" />
+           
+            <FormSection onSubmit={submitHandler}>
+                <TextInput onChange={input => inputHandler(input.target.value)} type="text" placeholder="ICAO Airport Code (ex KATL)"/>
                 <ButtonContainer>
                     <Button type="submit" >
-                        A TEST BUTTON
+                        SHOW ME
                     </Button>
                 </ButtonContainer>
-            </form>
+            </FormSection>
+
         </React.Fragment>
     );
 };
+
+export const Display = (props) => {
+    return (
+        <>
+            <DisplayDiv>
+                
+            </DisplayDiv>
+        </>
+    );
+}
