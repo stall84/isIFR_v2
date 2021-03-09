@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -17,7 +17,7 @@ export const Backdrop = styled.div`
     width: 100vw;
 `;
 
-export const FormSection = styled.form`
+export const FormSection = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,6 +44,7 @@ export const Button = styled.button`
     height: fit-content;
     width: fit-content;
     border: 0;
+    border-radius: 20%;
     background-color: #D166A7;
     color: #FFF;
     text-shadow: 0.3px -0.3px black;
@@ -53,3 +54,28 @@ export const Button = styled.button`
 export const Welcome = styled.h1`
     font-family: 'Raleway', open-sans;
 `;
+
+
+
+export const Form = (props) => {
+
+    const input = useRef(null);
+
+    const inputHandler = (event) => {
+        event.preventDefault();
+        alert('Sup!');
+        console.log('Logging Ref: ', input.current);
+    }
+    return (
+        <React.Fragment>
+            <form onSubmit={inputHandler}>
+                <TextInput ref={input} type="text" />
+                <ButtonContainer>
+                    <Button type="submit" >
+                        A TEST BUTTON
+                    </Button>
+                </ButtonContainer>
+            </form>
+        </React.Fragment>
+    );
+};

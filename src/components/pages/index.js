@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import { Container, 
     Welcome,
     FormSection, 
-    TextInput,
-    ButtonContainer,
-    Button } from './components';
+    Form } from './components';
 
 
 
@@ -16,12 +14,7 @@ const Index = () => {
         <Container >
                     <Welcome>Hello Airbus Employee!</Welcome>
                     <FormSection>
-                        <TextInput />
-                        <ButtonContainer>
-                            <Button>
-                                A TEST BUTTON
-                            </Button>
-                        </ButtonContainer>
+                        <Form />
                     </FormSection>
         </Container>
     );

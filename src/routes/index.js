@@ -13,6 +13,7 @@ router.get('/', async (req,res) => {
     const body = renderToString(sheet.collectStyles(<Index/>));
     const styleTags = sheet.getStyleTags();
     res.status(200).render('pages/index', {reactApp: body, styling: styleTags});
+    console.info('GET Request on Index Route');
 })
 
 export default router;

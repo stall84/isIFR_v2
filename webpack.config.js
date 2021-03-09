@@ -1,23 +1,32 @@
 const path = require('path');
 
-module.exports = {
+const config = {
     entry: {
-        vendor: ['graphql', 'relay-local-schema'],
-        app: ['./src/index.js']
+        vendor: ['graphql', 'relay-local-schema', '@babel/polyfill', 'react'],
+        index: ['./src/components/entrypoints/index.jsx']
     },
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'src','public'),
         filename: '[name].js',
-        publicPath: 'public'
+        // publicPath: 'public'
     },
     module: {
         rules: [
-            {
+            {   
+                test: /\.(js|jsx)$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
+                },
                 exclude: /node_modules/,
             }
         ]
     },
     resolve: {
-        extensions: ['.js']
+        extensions: ['.js', '.jsx', '.json', '*']
     }
 }
+
+module.exports = config;
