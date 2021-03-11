@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useQuery, gql } from '@apollo/client';
+
 
 export const Container = styled.div`
     height: 100vh;
@@ -70,7 +72,7 @@ export const WelcomeMsg = styled.h1`
 export const DisplayDiv = styled.div`
     width: 90vw;
     height: 30vh;
-    background-color: #6893A6;
+    background-color: rgba(104,147,166,0.5);
     border: 0.5px solid black;
     display: flex;
     flex-direction: column;
@@ -109,10 +111,26 @@ export const Form = (props) => {
 };
 
 export const Display = (props) => {
+
+    const wxQuery = gql`
+        query GetWeather {
+            wxResponse(code: "KATL") {
+                metar
+                flightRules
+            }
+        }
+    `;
+
+    const { loading, error, data } = useQuery(EXCHANGE_RATES);
+    const displayData = () => {
+        //...
+    }
+
+
     return (
         <>
             <DisplayDiv>
-                
+                TESTING
             </DisplayDiv>
         </>
     );

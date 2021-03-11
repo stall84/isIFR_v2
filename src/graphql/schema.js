@@ -15,7 +15,7 @@ const API_KEY = API.key;
 function fetchWeather(ICAO) {
     return axios.get(`${BASE_URL}${ICAO}?token=${API_KEY}`)
         .then((res) => {
-            // console.log('response: ', res.data);
+            console.log('fetchWeather Called ');
             return res.data;
         })
         .catch((error) => {
