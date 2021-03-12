@@ -48,8 +48,8 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button`
-    height: 2.2rem;
-    width: 8rem;
+    height: 2.2em;
+    width: 8em;
     border: 0;
     border-radius: 20%;
     background-color: #D166A7;
@@ -74,25 +74,77 @@ export const DisplayDiv = styled.div`
     height: 30vh;
     background-color: rgba(104,147,166,0.5);
     border: 0.5px solid black;
+    border-radius: 12%;
     display: flex;
     flex-direction: column;
 
 `;
 
+export const FlightRuleContainer = styled.div`
+    width: 20%;
+    height: 20%;
+    border: 0.5px solid black;
+`;
 
-export const Form = (props) => {
 
-    const [ input, setInput ] = useState(null);
+
+
+export const FormAndDisplay = (props) => {
+
+    const [ input, setInput ] = useState('KDCA');
+    const [ icaoTX, setIcaoTx ] = useState(null);
+    
     
 
     const inputHandler = (inputVal) => {
         setInput(inputVal);
     }
 
+
     const submitHandler = (event) => {
         event.preventDefault();
-        alert(input);
+        if (input) {
+            setIcaoTx(input);
+            
+        } else {
+            alert('Please enter an airport code');
+        }
+
     }
+
+    
+    const DisplayWx = () => {
+
+
+        const WX_QUERY = gql`
+            query GetWeather($code: String) {
+                wxResponse(code: $code) {
+                    metar
+                    flightRules
+                }
+            }
+        `;
+
+        const { loading, error, data } = useQuery(WX_QUERY, {
+            variables: { code: input } 
+        });
+        console.log(data);
+        if (loading) return 'Loading your weather...';
+        if (error) return 'There was a problem retrieving your weather with error message: ', error.message;
+
+        return (
+            <div>
+                <FlightRuleContainer>
+                <h2>
+                    {data.wxResponse.flightRules}
+                </h2>
+                </FlightRuleContainer>
+                <h2>
+                    {data.wxResponse.metar}
+                </h2>
+            </div>
+        );
+    };
 
     return (
         <React.Fragment>
@@ -101,37 +153,15 @@ export const Form = (props) => {
                 <TextInput onChange={input => inputHandler(input.target.value)} type="text" placeholder="ICAO Airport Code (ex KATL)"/>
                 <ButtonContainer>
                     <Button type="submit" >
-                        SHOW ME
+                        SHOW WX
                     </Button>
                 </ButtonContainer>
             </FormSection>
-
+        { icaoTX && 
+            <DisplayDiv>
+                <DisplayWx />
+            </DisplayDiv>
+        }
         </React.Fragment>
     );
 };
-
-export const Display = (props) => {
-
-    const wxQuery = gql`
-        query GetWeather {
-            wxResponse(code: "KATL") {
-                metar
-                flightRules
-            }
-        }
-    `;
-
-    const { loading, error, data } = useQuery(EXCHANGE_RATES);
-    const displayData = () => {
-        //...
-    }
-
-
-    return (
-        <>
-            <DisplayDiv>
-                TESTING
-            </DisplayDiv>
-        </>
-    );
-}

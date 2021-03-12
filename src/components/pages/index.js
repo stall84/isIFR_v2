@@ -6,7 +6,7 @@ import { Container,
     WelcomeDiv,
     WelcomeMsg,
     FormSection, 
-    Form,
+    FormAndDisplay,
     Button,
     DisplayDiv, 
     Display } from './components';
@@ -29,19 +29,24 @@ const client = new ApolloClient({
 
 const Index = () => {
 
-    // const testApollo = () => {
-    //     return client
-    //     .query({
-    //       query: gql`
-    //         query GetWeather {
-    //           wxResponse(code: "KWVI") {
-    //             metar
-    //           }
-    //         }
-    //       `
-    //     })
-    //     .then(result => console.log(result));
-    // }
+    const testApollo = () => {
+        return client
+        .query({
+          query: gql`
+            query GetWeather($code: String) {
+              wxResponse(code: $code) {
+                metar
+              }
+            }
+          `,
+          variables: {
+            code: "KATL"
+          }
+        })
+        .then(result => {
+            console.log(result)
+        });
+    }
 
     return (
         <ApolloProvider client={client}>
@@ -49,8 +54,8 @@ const Index = () => {
                 <WelcomeDiv>
                         <WelcomeMsg>Welcome to isIFR?: The web-app that will give you the most pertinent weather information you need on the airport of your choice</WelcomeMsg>
                 </WelcomeDiv>
-                            <Form />
-                            <Display />    
+                            <FormAndDisplay />
+                             <Button onClick={testApollo}>Test Apollo</Button>
             </Container>
         </ApolloProvider>
     );

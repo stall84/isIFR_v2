@@ -49,7 +49,7 @@ const QueryType = new GraphQLObjectType({
             },
             async resolve(root, args) {
                 const responseObj = await fetchWeather(`${args.code}`); 
-                // console.log('Query resolve return: ', responseObj);
+                console.log('Query Received')
                 return responseObj;
             }
         }
